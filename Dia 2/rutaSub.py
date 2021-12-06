@@ -1,8 +1,6 @@
 import csv
 from tqdm import tqdm
 
-
-
 Valores = list()
 x=0
 y=0
