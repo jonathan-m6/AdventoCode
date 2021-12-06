@@ -11,7 +11,5 @@ for dia in range(256):
     diasReproducir[ciclo]=diasReproducir[ciclo+1]
   diasReproducir[6]+=diaFertil
   diasReproducir[8]=diaFertil
-total=0
-for xxx in diasReproducir:
-  total+=xxx
+total=sum(diasReproducir)
 print(total)
