@@ -1,14 +1,14 @@
+from typing import Tuple
 import valores
 import numpy as np
 tablas=valores.valores.getMatrices(False)
 fichas=valores.valores.getValores(False)
-#ganadores=[{"x":{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0},"y":{"0":0,"1":0,"2":0,"3":0,"4":0,"5":0}} for n in range(len(tablas))]
 winX,winY=-1,-1
-theLast,tablaWin=0,-1
+theLast,tablaWin=0,[]
 ganadores=[{"x":[0 for i in range(5)],"y":[0 for i in range(5)]} for n in range(len(tablas))]
 finded=[[] for n in range(len(tablas))]
 def existe(y,x):
-  for find in finded[tablaWin]:
+  for find in finded[tablaWin[len(tablaWin)-1]]:
     if y==find[0] and x==find[1]:
       return True
   return False
@@ -25,18 +25,27 @@ def bingo():
             ganadores[i]["y"][linea]+=1
             ganadores[i]["x"][item]+=1
       for j in range(len(ganadores)):
-        y,x=ganadores[j]["y"],ganadores[j]["x"]
         for eje in range(5):
-          theLast=f
-          tablaWin=i
-          if y[eje]==5:
-            winY=eje
-            return
-          elif x[eje]==5:
-            winX=eje
+          y,x=ganadores[j]["y"],ganadores[j]["x"]
+          """ if y[eje]==5 or x[eje]==5 and len(tablas)>0:
+            tablas.pop(i)
+            ganadores.pop(i) """
+          if y[eje]==5 or x[eje]==5:
+            print("break")
+          if y[eje]==5 and (j in tablaWin)!=True:
+            """ orientacion="y"
+            numOrienta=eje """
+            theLast=f
+            tablaWin.append(i)
+          elif x[eje]==5 and (j in tablaWin)!=True:
+            """ orientacion="x"
+            numOrienta=eje """
+            theLast=f
+            tablaWin.append(i)
+          if len(tablaWin)==len(tablas):
             return
 bingo()
-suma,ganadora=0,tablas[tablaWin]
+suma,ganadora=0,tablas[tablaWin[len(tablaWin)-1]]
 for filas in range(len(ganadora)):
   for col in range(len(ganadora[filas])):
     if existe(filas,col)==False:
